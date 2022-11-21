@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Paciente {
+  cpf                   String                  @id
+  email                 String                  @unique
+  senha                 String
+  telefone              String                  @unique
+  nomeCompleto          String
+  dataDeNascimento      DateTime
+  sexo                  String
+  altura                Float?
+  peso                  Float?
+  dataCriado            DateTime                @default(now())
+
+  consulta Consulta[]
+
+  @@map("paciente")
+}
+
+model Medico {
+  crm                   String                  @id
+  telefone              String                  @unique
+  nomeCompleto          String
+  dataDeNascimento      DateTime
+
+  medicoEspecialidade   MedicoEspecialidade     @relation(fields: [medicoEspecialidadeId], references: [id])
+  medicoEspecialidadeId Int
+
+  diasAtendimento       DiasAtendimento[]
+  horariosAtendimento   HorariosAtendimento[]
+  consulta              Consulta[]
+
+  @@map("medico")
+}
+
+model MedicoEspecialidade {
+  id                    Int                     @id @default(autoincrement())
+  especialidade         String
+
+  medico                Medico[]
+}
+
+model DiasAtendimento {
+  id                    Int                     @id @default(autoincrement())
+  dias                  String
+
+  medico                Medico[]
+}
+
+model HorariosAtendimento {
+  id                    Int                     @id @default(autoincrement())
+  horarios              String
+
+  medico                Medico[]
+}
+
+model Consulta {
+  id                    Int                     @id @default(autoincrement())
+  queixa                String
+  descricaoMedica       String
+  prescricaoMedica      String
+  dataCriado            DateTime                @default(now())
+
+  medico                Medico                  @relation(fields: [medicoCrm], references: [crm])
+  medicoCrm             String
+
+  paciente              Paciente                @relation(fields: [pacienteCpf], references: [cpf])
+  pacienteCpf           String
+
+  @@map("consulta")
+}
