@@ -11,16 +11,16 @@ datasource db {
 }
 
 model Paciente {
-  cpf                   String                  @id
-  email                 String                  @unique
-  senha                 String
-  telefone              String                  @unique
-  nomeCompleto          String
-  dataDeNascimento      DateTime
-  sexo                  String
-  altura                Float?
-  peso                  Float?
-  dataCriado            DateTime                @default(now())
+  cpf                                    String                   @id
+  email                                  String
+  senha                                  String
+  telefone                               String
+  nomeCompleto                           String
+  dataDeNascimento                       DateTime
+  sexo                                   String
+  altura                                 Float?
+  peso                                   Float?
+  dataCriado                             DateTime                 @default(now())
 
   consulta Consulta[]
 
@@ -28,54 +28,76 @@ model Paciente {
 }
 
 model Medico {
-  crm                   String                  @id
-  telefone              String                  @unique
-  nomeCompleto          String
-  dataDeNascimento      DateTime
+  crm                                    String                   @id
+  telefone                               String
+  nomeCompleto                           String
+  dataDeNascimento                       DateTime
 
-  medicoEspecialidade   MedicoEspecialidade     @relation(fields: [medicoEspecialidadeId], references: [id])
-  medicoEspecialidadeId Int
+  especialidade                          Especialidade            @relation(fields: [especialidadeId], references: [id])
+  especialidadeId                        Int
 
-  diasAtendimento       DiasAtendimento[]
-  horariosAtendimento   HorariosAtendimento[]
-  consulta              Consulta[]
+  diasAtendimento                        DiasAtendimento[]
+  horariosAtendimento                    HorariosAtendimento[]
+  calendario                             Calendario[]
+  consulta                               Consulta[]
 
   @@map("medico")
 }
 
-model MedicoEspecialidade {
-  id                    Int                     @id @default(autoincrement())
-  especialidade         String
+model Especialidade {
+  id                                     Int                      @id @default(autoincrement())
+  especialidade                          String
 
-  medico                Medico[]
+  medico                                 Medico[]
 }
 
 model DiasAtendimento {
-  id                    Int                     @id @default(autoincrement())
-  dias                  String
+  id                                     Int                      @id @default(autoincrement())
+  dias                                   String
 
-  medico                Medico[]
+  calendario                             Calendario[]
+  medico                                 Medico[]
 }
 
 model HorariosAtendimento {
-  id                    Int                     @id @default(autoincrement())
-  horarios              String
+  id                                     Int                      @id @default(autoincrement())
+  horarios                               String
 
-  medico                Medico[]
+  calendario                             Calendario[]
+  medico                                 Medico[]
+}
+
+model Calendario {
+  id                                     Int                      @id @default(autoincrement())
+  diaMensal                              Int
+  mesAnual                               Int
+
+  diasAtendimento                        DiasAtendimento          @relation(fields: [diasAtendimentoId], references: [id])
+  diasAtendimentoId                      Int
+
+  horariosAtendimento                    HorariosAtendimento[]
+
+  medico                                 Medico                   @relation(fields: [medicoCrm], references: [crm])
+  medicoCrm                              String
+
+  consulta                               Consulta[]
 }
 
 model Consulta {
-  id                    Int                     @id @default(autoincrement())
-  queixa                String
-  descricaoMedica       String
-  prescricaoMedica      String
-  dataCriado            DateTime                @default(now())
+  id                                     Int                      @id @default(autoincrement())
+  queixa                                 String
+  descricaoMedica                        String
+  prescricaoMedica                       String
+  dataCriado                             DateTime                 @default(now())
 
-  medico                Medico                  @relation(fields: [medicoCrm], references: [crm])
-  medicoCrm             String
+  calendario                             Calendario               @relation(fields: [calendarioId], references: [id])
+  calendarioId                           Int
 
-  paciente              Paciente                @relation(fields: [pacienteCpf], references: [cpf])
-  pacienteCpf           String
+  medico                                 Medico                   @relation(fields: [medicoCrm], references: [crm])
+  medicoCrm                              String
+
+  paciente                               Paciente                 @relation(fields: [pacienteCpf], references: [cpf])
+  pacienteCpf                            String
 
   @@map("consulta")
 }
