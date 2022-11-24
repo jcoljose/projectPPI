@@ -14,8 +14,8 @@ model Paciente {
   cpf                                    String                   @id
   email                                  String
   senha                                  String
-  telefone                               String
   nomeCompleto                           String
+  telefone                               String
   dataDeNascimento                       DateTime
   sexo                                   String
   altura                                 Float?
@@ -29,16 +29,19 @@ model Paciente {
 
 model Medico {
   crm                                    String                   @id
-  telefone                               String
   nomeCompleto                           String
+  telefone                               String
   dataDeNascimento                       DateTime
 
   especialidade                          Especialidade            @relation(fields: [especialidadeId], references: [id])
   especialidadeId                        Int
-
+  
   diasAtendimento                        DiasAtendimento[]
+
   horariosAtendimento                    HorariosAtendimento[]
+
   calendario                             Calendario[]
+
   consulta                               Consulta[]
 
   @@map("medico")
@@ -49,55 +52,94 @@ model Especialidade {
   especialidade                          String
 
   medico                                 Medico[]
-}
-
-model DiasAtendimento {
-  id                                     Int                      @id @default(autoincrement())
-  dias                                   String
 
   calendario                             Calendario[]
-  medico                                 Medico[]
+
+  @@map("especialidade")
 }
 
-model HorariosAtendimento {
+model Consulta {
   id                                     Int                      @id @default(autoincrement())
-  horarios                               String
+  queixa                                 String
 
-  calendario                             Calendario[]
-  medico                                 Medico[]
+  paciente                               Paciente                 @relation(fields: [pacienteCpf], references: [cpf])
+  pacienteCpf                            String
+
+  medico                                 Medico                   @relation(fields: [medicoCrm], references: [crm])
+  medicoCrm                              String
+
+  descricaoMedica                        String
+  prescricaoMedica                       String
+
+  calendario                             Calendario               @relation(fields: [calendarioId], references: [id])
+  calendarioId                           Int
+
+  dataCriado                             DateTime                 @default(now())
+
+  @@map("consulta")
 }
 
 model Calendario {
   id                                     Int                      @id @default(autoincrement())
-  diaMensal                              Int
-  mesAnual                               Int
+ 
+  medico                                 Medico                   @relation(fields: [medicoCrm], references: [crm])
+  medicoCrm                              String
+
+  especialidade                          Especialidade            @relation(fields: [especialidadeId], references: [id])
+  especialidadeId                        Int
+
+  mesAnual                               MesAnual                 @relation(fields: [mesAnualId], references: [id])
+  mesAnualId                             Int
+
+  diaMensal                              DiaMensal                @relation(fields: [diaMensalId], references: [id])
+  diaMensalId                            Int
   
   diasAtendimento                        DiasAtendimento          @relation(fields: [diasAtendimentoId], references: [id])
   diasAtendimentoId                      Int
 
   horariosAtendimento                    HorariosAtendimento[]
 
-  medico                                 Medico                   @relation(fields: [medicoCrm], references: [crm])
-  medicoCrm                              String
-
   consulta                               Consulta[]
+
+  @@map("calendario")
 }
 
-model Consulta {
+model DiasAtendimento {
   id                                     Int                      @id @default(autoincrement())
-  queixa                                 String
-  descricaoMedica                        String
-  prescricaoMedica                       String
-  dataCriado                             DateTime                 @default(now())
+  dias                                   String
 
-  calendario                             Calendario               @relation(fields: [calendarioId], references: [id])
-  calendarioId                           Int
+  medico                                 Medico[]
 
-  medico                                 Medico                   @relation(fields: [medicoCrm], references: [crm])
-  medicoCrm                              String
+  calendario                             Calendario[]
 
-  paciente                               Paciente                 @relation(fields: [pacienteCpf], references: [cpf])
-  pacienteCpf                            String
+  @@map("diaAtendimento")
+}
 
-  @@map("consulta")
+model HorariosAtendimento {
+  id                                     Int                      @id @default(autoincrement())
+  horarios                               String
+
+  medico                                 Medico[]
+
+  calendario                             Calendario[]
+
+  @@map("horarioAtendimento")
+}
+
+model DiaMensal {
+  id                                     Int                      @id @default(autoincrement())
+  diaMensal                              Int
+
+  calendario                             Calendario[]
+
+  @@map("diaMensal")
+}
+
+model MesAnual {
+  id                                     Int                      @id @default(autoincrement())
+  mesAnual                               Int
+
+  calendario                             Calendario[]
+
+  @@map("mesAnual")
 }
