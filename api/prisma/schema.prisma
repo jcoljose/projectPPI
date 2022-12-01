@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -22,7 +22,7 @@ model Paciente {
   peso                                   Float?
   dataCriado                             DateTime                 @default(now())
 
-  consulta Consulta[]
+  consulta                               Consulta[]               //Relação: (n, n)
 
   @@map("paciente")
 }
@@ -34,15 +34,11 @@ model Medico {
   dataDeNascimento                       DateTime
 
   especialidade                          Especialidade            @relation(fields: [especialidadeId], references: [id])
-  especialidadeId                        Int
+  especialidadeId                        Int                      //Relação: (1, 0)
   
-  diasAtendimento                        DiasAtendimento[]
-
-  horariosAtendimento                    HorariosAtendimento[]
-
-  calendario                             Calendario[]
-
-  consulta                               Consulta[]
+  diasAtendimento                        DiasAtendimento[]        //Relação: (n, 0)
+  horariosAtendimento                    HorariosAtendimento[]    //Relação: (n, 0)
+  consulta                               Consulta[]               //Relação: (n, n)
 
   @@map("medico")
 }
@@ -51,66 +47,17 @@ model Especialidade {
   id                                     Int                      @id @default(autoincrement())
   especialidade                          String
 
-  medico                                 Medico[]
-
-  calendario                             Calendario[]
+  medico                                 Medico[]                 //Relação: (1, 0)
 
   @@map("especialidade")
-}
-
-model Consulta {
-  id                                     Int                      @id @default(autoincrement())
-  queixa                                 String
-
-  paciente                               Paciente                 @relation(fields: [pacienteCpf], references: [cpf])
-  pacienteCpf                            String
-
-  medico                                 Medico                   @relation(fields: [medicoCrm], references: [crm])
-  medicoCrm                              String
-
-  descricaoMedica                        String
-  prescricaoMedica                       String
-
-  calendario                             Calendario               @relation(fields: [calendarioId], references: [id])
-  calendarioId                           Int
-
-  dataCriado                             DateTime                 @default(now())
-
-  @@map("consulta")
-}
-
-model Calendario {
-  id                                     Int                      @id @default(autoincrement())
- 
-  medico                                 Medico                   @relation(fields: [medicoCrm], references: [crm])
-  medicoCrm                              String
-
-  especialidade                          Especialidade            @relation(fields: [especialidadeId], references: [id])
-  especialidadeId                        Int
-
-  mesAnual                               MesAnual                 @relation(fields: [mesAnualId], references: [id])
-  mesAnualId                             Int
-
-  diaMensal                              DiaMensal                @relation(fields: [diaMensalId], references: [id])
-  diaMensalId                            Int
-  
-  diasAtendimento                        DiasAtendimento          @relation(fields: [diasAtendimentoId], references: [id])
-  diasAtendimentoId                      Int
-
-  horariosAtendimento                    HorariosAtendimento[]
-
-  consulta                               Consulta[]
-
-  @@map("calendario")
 }
 
 model DiasAtendimento {
   id                                     Int                      @id @default(autoincrement())
   dias                                   String
 
-  medico                                 Medico[]
+  medico                                 Medico[]                 //Relação: (n, 0)
 
-  calendario                             Calendario[]
 
   @@map("diaAtendimento")
 }
@@ -119,27 +66,25 @@ model HorariosAtendimento {
   id                                     Int                      @id @default(autoincrement())
   horarios                               String
 
-  medico                                 Medico[]
-
-  calendario                             Calendario[]
+  medico                                 Medico[]                 //Relação: (n, 0)
 
   @@map("horarioAtendimento")
 }
 
-model DiaMensal {
+model Consulta {
   id                                     Int                      @id @default(autoincrement())
-  diaMensal                              Int
+  dataConsulta                           DateTime
 
-  calendario                             Calendario[]
+  paciente                               Paciente                 @relation(fields: [pacienteCpf], references: [cpf])
+  pacienteCpf                            String                   //Relação: (n, n)
 
-  @@map("diaMensal")
-}
+  medico                                 Medico                   @relation(fields: [medicoCrm], references: [crm])
+  medicoCrm                              String                   //Relação: (n, n)
 
-model MesAnual {
-  id                                     Int                      @id @default(autoincrement())
-  mesAnual                               Int
+  queixa                                 String
+  descricaoMedica                        String
+  prescricaoMedica                       String
+  dataCriado                             DateTime                 @default(now())
 
-  calendario                             Calendario[]
-
-  @@map("mesAnual")
+  @@map("consulta")
 }
