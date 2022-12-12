@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CadastroComponent implements OnInit {
 
-  cadastroForm: FormGroup
+  cadastroForm: FormGroup | any
 
   constructor(private fb: FormBuilder, private register: RegisterService) {
     this.cadastroForm = this.fb.group({
@@ -18,8 +18,8 @@ export class CadastroComponent implements OnInit {
       dataNascimento: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       telefone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(11)]],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-      rSenha: ['', [Validators.required, Validators.minLength(6)]]
+      senha: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+      rSenha: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]]
     })
   }
 
@@ -28,6 +28,6 @@ export class CadastroComponent implements OnInit {
 
 
   submit(): void {
-    this.register.registrarPaciente(this.cadastroForm.getRawValue()).subscribe(res => {res})
+    this.register.registrarPaciente(this.cadastroForm.getRawValue()).subscribe(res => {console.log(res)})
   }
 }

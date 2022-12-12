@@ -6,8 +6,9 @@ import { router as pacientesRouter } from './routes/pacientes.route';
 import { router as  registrosRouter } from './routes/registros.route';
 
 const app = express();
+const bodyParser = require('body-parser');
 
-app.use(cors(), medicosRouter, pacientesRouter, registrosRouter)
+app.use(cors(), bodyParser.json(), medicosRouter, pacientesRouter, registrosRouter)
 
 app.listen(3333, () => {console.log('Listening on http://localhost:3333/')});
 

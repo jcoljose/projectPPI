@@ -12,6 +12,8 @@
                                 <div class="wrap-input100">
                                     <input class="input100 form-control" formControlName="nomeCompleto" type="text">
                                     <span class="focus-input100"></span>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('nomeCompleto').hasError('required') && (cadastroForm.get('nomeCompleto').dirty || cadastroForm.get('nomeCompleto').touched)">Esse Campo é Obrigatório</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('nomeCompleto').hasError('minlength')">O nome deve conter no mínimo {{cadastroForm.get('nomeCompleto').errors.minlength.requiredLength}} letras</small>
                                 </div>
                             </div>
                         </div>
@@ -21,6 +23,9 @@
                                 <div class="wrap-input100">
                                     <input class="input100 form-control" formControlName="cpf" type="text">
                                     <span class="focus-input100"></span>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('cpf').hasError('required') && (cadastroForm.get('cpf').dirty || cadastroForm.get('cpf').touched)">Esse Campo é Obrigatório</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('cpf').hasError('minlength')">O CPF deve conter {{cadastroForm.get('cpf').errors.minlength.requiredLength}} números</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('cpf').hasError('maxlength')">O CPF deve conter {{cadastroForm.get('cpf').errors.maxlength.requiredLength}} números</small>
                                 </div>
                             </div>
                         </div>
@@ -32,6 +37,7 @@
                                 <div class="wrap-input100">
                                     <input class="input100 form-control" formControlName="dataNascimento" type="date">
                                     <span class="focus-input100"></span>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('dataNascimento').hasError('required') && (cadastroForm.get('dataNascimento').dirty || cadastroForm.get('dataNascimento').touched)">Esse Campo é Obrigatório</small>
                                 </div>
                             </div>
                         </div>
@@ -56,6 +62,8 @@
                                 <div class="wrap-input100">
                                     <input class="input100 form-control" formControlName="email" type="email">
                                     <span class="focus-input100"></span>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('email').hasError('required') && (cadastroForm.get('email').dirty || cadastroForm.get('email').touched)">Esse Campo é Obrigatório</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('email').hasError('email')">E-mail Inválido</small>
                                 </div>
                             </div>
                         </div>
@@ -65,6 +73,9 @@
                                 <div class="wrap-input100">
                                     <input class="input100 form-control" formControlName="telefone" type="tel">
                                     <span class="focus-input100"></span>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('telefone').hasError('required') && (cadastroForm.get('telefone').dirty || cadastroForm.get('telefone').touched)">Esse Campo é Obrigatório</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('telefone').hasError('minlength')">O telefone deve conter no mínimo {{cadastroForm.get('telefone').errors.minlength.requiredLength}} números</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('telefone').hasError('maxlength')">O telefone deve conter no mínimo {{cadastroForm.get('telefone').errors.maxlength.requiredLength}} números</small>
                                 </div>
                             </div>
                         </div>
@@ -76,6 +87,8 @@
                                 <div class="wrap-input100">
                                     <input class="input100 form-control" formControlName="senha" type="password">
                                     <span class="focus-input100"></span>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('senha').hasError('required') && (cadastroForm.get('senha').dirty || cadastroForm.get('senha').touched)">Esse Campo é Obrigatório</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('senha').hasError('pattern')">Senha Inválida</small>
                                 </div>
                             </div>
                         </div>
@@ -85,12 +98,14 @@
                                 <div class="wrap-input100">
                                     <input class="input100 form-control" formControlName="rSenha" type="password">
                                     <span class="focus-input100"></span>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('rSenha').hasError('required') && (cadastroForm.get('rSenha').dirty || cadastroForm.get('rSenha').touched)">Esse Campo é Obrigatório</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('rSenha').hasError('pattern')">Senha Inválida</small>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="container-login100-form-btn m-t-17">
-                        <button class="login100-form-btn">Registrar</button>
+                        <button class="login100-form-btn" [disabled]="cadastroForm.invalid">Registrar</button>
                     </div>
                     <div class="w-full text-center p-t-55">
                         <span class="txt2">Já tem uma conta?</span>
