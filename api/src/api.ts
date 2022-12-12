@@ -1,11 +1,13 @@
-import express from 'express';
 import cors from 'cors';
-import { router as medicosRouter } from './routes/medicos';
-import { router as pacientesRouter } from './routes/pacientes';
+import express from 'express';
+
+import { router as medicosRouter } from './routes/medicos.route';
+import { router as pacientesRouter } from './routes/pacientes.route';
+import { router as  registrosRouter } from './routes/registros.route';
 
 const app = express();
 
-app.use(cors(), medicosRouter, pacientesRouter)
+app.use(cors(), medicosRouter, pacientesRouter, registrosRouter)
 
 app.listen(3333, () => {console.log('Listening on http://localhost:3333/')});
 
