@@ -88,7 +88,8 @@
                                     <input class="input100 form-control" formControlName="senha" type="password">
                                     <span class="focus-input100"></span>
                                     <small class="text-danger" *ngIf="cadastroForm.get('senha').hasError('required') && (cadastroForm.get('senha').dirty || cadastroForm.get('senha').touched)">Esse Campo é Obrigatório</small>
-                                    <small class="text-danger" *ngIf="cadastroForm.get('senha').hasError('pattern')">Senha Inválida</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('senha').hasError('pattern')">A senha deve conter um número<br>A senha deve conter uma letra minúscula<br>A senha deve conter uma letra maiúscula<br>A senha deve conter um caractere especial<br></small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('senha').hasError('minlength')">A senha deve conter no mínimo {{cadastroForm.get('senha').errors.minlength.requiredLength}} números</small>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +100,8 @@
                                     <input class="input100 form-control" formControlName="rSenha" type="password">
                                     <span class="focus-input100"></span>
                                     <small class="text-danger" *ngIf="cadastroForm.get('rSenha').hasError('required') && (cadastroForm.get('rSenha').dirty || cadastroForm.get('rSenha').touched)">Esse Campo é Obrigatório</small>
-                                    <small class="text-danger" *ngIf="cadastroForm.get('rSenha').hasError('pattern')">Senha Inválida</small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('rSenha').hasError('pattern')">A senha deve conter um número<br>A senha deve conter uma letra minúscula<br>A senha deve conter uma letra maiúscula<br>A senha deve conter um caractere especial<br></small>
+                                    <small class="text-danger" *ngIf="cadastroForm.get('rSenha').hasError('minlength')">A senha deve conter no mínimo {{cadastroForm.get('rSenha').errors.minlength.requiredLength}} números</small>
                                 </div>
                             </div>
                         </div>

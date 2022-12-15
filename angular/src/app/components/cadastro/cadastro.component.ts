@@ -18,14 +18,12 @@ export class CadastroComponent implements OnInit {
       dataNascimento: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       telefone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(11)]],
-      senha: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
-      rSenha: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]]
+      senha: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/\d/), Validators.pattern(/[a-z]/), Validators.pattern(/[A-Z]/), Validators.pattern(/[&$?!_-]/)]],
+      rSenha: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/\d/), Validators.pattern(/[a-z]/), Validators.pattern(/[A-Z]/), Validators.pattern(/[&$?_-]/)]]
     })
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void { }
 
   submit(): void {
     this.register.registrarPaciente(this.cadastroForm.getRawValue()).subscribe(res => {console.log(res)})
