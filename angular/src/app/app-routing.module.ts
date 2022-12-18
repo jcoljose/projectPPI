@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'cadastro', component: CadastroComponent },
-  { path: 'perfil', component: PerfilComponent },
-  { path: 'consulta', component: ConsultaComponent }
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuardGuard] },
+  { path: 'consulta', component: ConsultaComponent, canActivate: [AuthGuardGuard] }
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
-import { RegisterService } from './../../services/register.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -13,13 +13,13 @@ export class CadastroComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private register: RegisterService) {
     this.cadastroForm = this.fb.group({
-      nomeCompleto: ['', [Validators.required, Validators.minLength(4)]],
-      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      nomeCompleto: ['', [Validators.required]],
+      cpf: ['', [Validators.required]],
       dataNascimento: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      telefone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(11)]],
-      senha: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/\d/), Validators.pattern(/[a-z]/), Validators.pattern(/[A-Z]/), Validators.pattern(/[&$?!_-]/)]],
-      rSenha: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/\d/), Validators.pattern(/[a-z]/), Validators.pattern(/[A-Z]/), Validators.pattern(/[&$?_-]/)]]
+      telefone: ['', [Validators.required]],
+      senha: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/\d/), Validators.pattern(/[a-z]/), Validators.pattern(/[A-Z]/)]],
+      rSenha: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/\d/), Validators.pattern(/[a-z]/), Validators.pattern(/[A-Z]/)]]
     })
   }
 

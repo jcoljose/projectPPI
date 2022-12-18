@@ -52,12 +52,12 @@ CREATE TABLE `horarioAtendimento` (
 -- CreateTable
 CREATE TABLE `consulta` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `queixa` VARCHAR(191) NOT NULL,
+    `dataConsulta` DATETIME(3) NOT NULL,
     `pacienteCpf` VARCHAR(191) NOT NULL,
     `medicoCrm` VARCHAR(191) NOT NULL,
+    `queixa` VARCHAR(191) NOT NULL,
     `descricaoMedica` VARCHAR(191) NOT NULL,
     `prescricaoMedica` VARCHAR(191) NOT NULL,
-    `dataConsulta` DATETIME(3) NOT NULL,
     `dataCriado` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)

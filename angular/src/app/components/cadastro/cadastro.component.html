@@ -13,7 +13,6 @@
                                     <input class="input100 form-control" formControlName="nomeCompleto" type="text">
                                     <span class="focus-input100"></span>
                                     <small class="text-danger" *ngIf="cadastroForm.get('nomeCompleto').hasError('required') && (cadastroForm.get('nomeCompleto').dirty || cadastroForm.get('nomeCompleto').touched)">Esse Campo é Obrigatório</small>
-                                    <small class="text-danger" *ngIf="cadastroForm.get('nomeCompleto').hasError('minlength')">O nome deve conter no mínimo {{cadastroForm.get('nomeCompleto').errors.minlength.requiredLength}} letras</small>
                                 </div>
                             </div>
                         </div>
@@ -24,8 +23,6 @@
                                     <input class="input100 form-control" formControlName="cpf" type="text">
                                     <span class="focus-input100"></span>
                                     <small class="text-danger" *ngIf="cadastroForm.get('cpf').hasError('required') && (cadastroForm.get('cpf').dirty || cadastroForm.get('cpf').touched)">Esse Campo é Obrigatório</small>
-                                    <small class="text-danger" *ngIf="cadastroForm.get('cpf').hasError('minlength')">O CPF deve conter {{cadastroForm.get('cpf').errors.minlength.requiredLength}} números</small>
-                                    <small class="text-danger" *ngIf="cadastroForm.get('cpf').hasError('maxlength')">O CPF deve conter {{cadastroForm.get('cpf').errors.maxlength.requiredLength}} números</small>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +60,6 @@
                                     <input class="input100 form-control" formControlName="email" type="email">
                                     <span class="focus-input100"></span>
                                     <small class="text-danger" *ngIf="cadastroForm.get('email').hasError('required') && (cadastroForm.get('email').dirty || cadastroForm.get('email').touched)">Esse Campo é Obrigatório</small>
-                                    <small class="text-danger" *ngIf="cadastroForm.get('email').hasError('email')">E-mail Inválido</small>
                                 </div>
                             </div>
                         </div>
@@ -74,8 +70,6 @@
                                     <input class="input100 form-control" formControlName="telefone" type="tel">
                                     <span class="focus-input100"></span>
                                     <small class="text-danger" *ngIf="cadastroForm.get('telefone').hasError('required') && (cadastroForm.get('telefone').dirty || cadastroForm.get('telefone').touched)">Esse Campo é Obrigatório</small>
-                                    <small class="text-danger" *ngIf="cadastroForm.get('telefone').hasError('minlength')">O telefone deve conter no mínimo {{cadastroForm.get('telefone').errors.minlength.requiredLength}} números</small>
-                                    <small class="text-danger" *ngIf="cadastroForm.get('telefone').hasError('maxlength')">O telefone deve conter no mínimo {{cadastroForm.get('telefone').errors.maxlength.requiredLength}} números</small>
                                 </div>
                             </div>
                         </div>
