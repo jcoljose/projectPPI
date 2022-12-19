@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from 'src/app/services/register.service';
@@ -11,13 +12,14 @@ export class CadastroComponent implements OnInit {
 
   cadastroForm: FormGroup | any
 
-  constructor(private fb: FormBuilder, private register: RegisterService) {
+  constructor(private fb: FormBuilder, private register: RegisterService, private router: Router) {
     this.cadastroForm = this.fb.group({
       nomeCompleto: ['', [Validators.required]],
-      cpf: ['', [Validators.required]],
+      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       dataNascimento: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      telefone: ['', [Validators.required]],
+      telefone: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      sexo: ['', [Validators.required]],
       senha: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/\d/), Validators.pattern(/[a-z]/), Validators.pattern(/[A-Z]/)]],
       rSenha: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/\d/), Validators.pattern(/[a-z]/), Validators.pattern(/[A-Z]/)]]
     })
@@ -25,7 +27,26 @@ export class CadastroComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  keyPressNumber(event: KeyboardEvent) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+        event.preventDefault();
+    }
+  }
+
+  keyPressName(event: KeyboardEvent) {
+    const pattern = /[a-z\u00C0-\u00FF ]/gi
+    const inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)){
+      event.preventDefault();
+    }
+  }
+
   submit(): void {
-    this.register.registrarPaciente(this.cadastroForm.getRawValue()).subscribe(res => {console.log(res)})
+    this.register.registrarPaciente(this.cadastroForm.getRawValue()).subscribe(res => {
+      alert(res.message)
+      if (res.value) {this.router.navigate(['/login'])}
+    })
   }
 }

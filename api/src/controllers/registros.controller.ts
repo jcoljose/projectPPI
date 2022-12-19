@@ -5,7 +5,9 @@ import bcrypt from 'bcrypt'
 const prisma = new PrismaClient();
 
 export const registrarPaciente = async (req: Request, res: Response) => {
-    const { cpf, email, senha, nomeCompleto, telefone, dataDeNascimento, sexo } = req.body
+    const { cpf, email, senha, rSenha, nomeCompleto, telefone, dataNascimento, sexo } = req.body
+    const dataDeNascimento = new Date(dataNascimento)
+
     const emailExists = await prisma.paciente.findFirst({
         where: {
             email: email
@@ -17,21 +19,12 @@ export const registrarPaciente = async (req: Request, res: Response) => {
         }
     })
 
-    try {
-        if (emailExists !== null) {
-            throw ('Email cadastrado já existe!')
-        }
-    } catch (error) {
-        res.json(error)
-    }
-    
-    try {
-        if (cpfExists !== null) {
-            throw ('CPF cadastrado já existe!')
-        }
-    } catch (error) {
-        res.json(error)
-    }
+    if (emailExists !== null || cpfExists !== null) {return res.json({
+        message: 'Email ou CPF informado já existe'
+    })}
+    if (senha !== rSenha) {return res.json({
+        message: 'As senhas estão diferentes'
+    })}
     
     const hashSenha = await bcrypt.hash(senha, 10)
 
@@ -46,6 +39,9 @@ export const registrarPaciente = async (req: Request, res: Response) => {
             sexo: sexo
         }
     })
-    return res.json(newUser)
 
+    return res.json({
+        message: 'Usuário registrado com sucesso!',
+        value: true
+    })
 }

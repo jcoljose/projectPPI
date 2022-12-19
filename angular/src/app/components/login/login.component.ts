@@ -1,6 +1,7 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,9 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup | any
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       senha: ['', [Validators.required]]
   })
   }
@@ -22,6 +23,12 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.authService.login(this.loginForm.getRawValue()).subscribe(res => console.log(res))
+    this.authService.login(this.loginForm.getRawValue()).subscribe(res => {
+      alert(res.message)
+      if(res.value) {
+        localStorage.setItem('token', res.token)
+        this.router.navigate(['/perfil'])
+      }
+    })
   }
 }

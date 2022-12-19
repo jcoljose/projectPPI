@@ -14,10 +14,10 @@ export class AuthService {
   constructor(private http: HttpClient) { this.URL = 'http://localhost:3333/';}
 
   login(login: Login): Observable<any> {
-    return this.http.get(`${this.URL}/login`)
+    return this.http.post(`${this.URL}login`, login)
   }
 
-  isAuthenticated() {
-    return true
+  isAuthenticated(): Observable<any> {
+    return this.http.get(`${this.URL}auth`)
   }
 }

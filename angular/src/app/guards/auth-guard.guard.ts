@@ -10,18 +10,18 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthGuardGuard implements CanActivate {
 
-  constructor (public authService: AuthService, private router: Router) { }
+  constructor (private auth: AuthService, private router: Router) { }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.authService.isAuthenticated()) {
-      if (state.url != '/login') {
-        this.router.navigate(['/login'])
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+    const authentic = () => this.auth.isAuthenticated().subscribe(res => {
+      if (!res) {
+        if (state.url != '/login') {
+          this.router.navigate(['/login'])
+        }
       }
-      return false
-    }
-    else { return true }
+      return res
+    })
+    return authentic() ? true : false
   }
-
 }

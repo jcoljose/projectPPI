@@ -4,25 +4,33 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
-const jwtSenha = '123'
+const jwtSenha = '$2a$10$MIjpU/xsQwbfT13.HPvu8.z.0l8FbTTEXN8ZJsG.Vp.5oF1Zr/lIC'
 
 export const loginValidate = async (req: Request, res: Response) => {
     const { email, senha } = req.body
+
     const isLogin = await prisma.paciente.findFirst({
         where: {
             email: email
         }
     })
 
-    if (isLogin == null) {throw new Error('Email ou senha Inválidos\n')}
+    if (isLogin == null) {return res.json({
+        message: 'Email ou senha Inválidos'
+    })}
     else {
         const verifySenha = await bcrypt.compare(senha, isLogin.senha)
 
-        if (verifySenha) {
-            const token = jwt.sign({email: isLogin.email}, jwtSenha, {expiresIn: '1h'})
-            return res.json({token: token})
-        }
-        else {throw new Error ('Email ou senha Inválidos\n')}
+        if (!verifySenha) {return res.json({
+            message: 'Email ou senha Inválidos'
+        })}
+        else {
+            const token = jwt.sign({cpf: isLogin.cpf}, jwtSenha, {expiresIn: '1h'})
+            return res.json({
+                message: 'Logado com Sucesso!',
+                value: true,
+                token: token
+            })
+        }     
     }
-    
 }
