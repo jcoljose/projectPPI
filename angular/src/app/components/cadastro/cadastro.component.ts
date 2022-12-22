@@ -31,7 +31,7 @@ export class CadastroComponent implements OnInit {
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (!pattern.test(inputChar)) {
-        event.preventDefault();
+      this.preventDefault(event);
     }
   }
 
@@ -39,14 +39,18 @@ export class CadastroComponent implements OnInit {
     const pattern = /[a-z\u00C0-\u00FF ]/gi
     const inputChar = String.fromCharCode(event.charCode);
     if (!pattern.test(inputChar)){
-      event.preventDefault();
+      this.preventDefault(event);
     }
+  }
+
+  preventDefault(event: KeyboardEvent | ClipboardEvent) {
+    event.preventDefault()
   }
 
   submit(): void {
     this.register.registrarPaciente(this.cadastroForm.getRawValue()).subscribe(res => {
       alert(res.message)
-      if (res.value) {this.router.navigate(['/login'])}
+      if (res.value) {this.router.navigate(['/'])}
     })
   }
 }

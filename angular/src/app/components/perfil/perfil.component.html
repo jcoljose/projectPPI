@@ -1,1 +1,32 @@
-<p>perfil works!</p>
+<div class="page-wrapper- p-t-30- p-b-30- font-poppins-" style="background-image: url('../../../assets/css/images/bg.jpg');">
+  <div class="wrapper- wrapper--w680-">
+      <div class="card- card-4-">
+          <div class="card-body-">
+              <span class="login100-form-title p-b-30-">Perfil</span>
+                  <span class="txt1">Nome Completo</span>
+                  <div class="wrap-input100 m-b-30-">
+                      <input class="input100" type="text" [value]="nomeCompleto" [disabled]="disabled">
+                      <span class="focus-input100"></span>
+                  </div>
+                  <span class="txt1">CPF</span>
+                  <div class="wrap-input100 m-b-30-">
+                      <input class="input100" type="text" [value]="cpf" [disabled]="disabled">
+                      <span class="focus-input100"></span>
+                  </div>
+                  <span class="txt1">Data de Nascimento</span>
+                  <div class="wrap-input100 m-b-30-">
+                      <input class="input100" type="date" [value]="dataDeNascimento" [disabled]="disabled">
+                      <span class="focus-input100"></span>
+                  </div>
+                  <span class="txt1">Telefone</span>
+                  <div class="wrap-input100 m-b-30-">
+                      <input class="input100" type="tel" [value]="telefone" [disabled]="disabled">
+                      <span class="focus-input100"></span>
+                  </div>
+                  <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" (click)="logout()">Sair</button>
+                  </div>
+          </div>
+      </div>
+  </div>
+</div>

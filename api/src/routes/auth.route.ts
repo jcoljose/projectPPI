@@ -4,4 +4,4 @@ import { authValidate } from '../controllers/auth.controller';
 
 export const router = Router();
 
-router.get('/auth', authValidate);
+router.get('/auth/:ls', authValidate);

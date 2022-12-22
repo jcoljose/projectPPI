@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 
 export const registrarPaciente = async (req: Request, res: Response) => {
     const { cpf, email, senha, rSenha, nomeCompleto, telefone, dataNascimento, sexo } = req.body
+
     const dataDeNascimento = new Date(dataNascimento)
 
     const emailExists = await prisma.paciente.findFirst({

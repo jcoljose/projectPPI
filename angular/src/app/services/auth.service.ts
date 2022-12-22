@@ -17,7 +17,7 @@ export class AuthService {
     return this.http.post(`${this.URL}login`, login)
   }
 
-  isAuthenticated(): Observable<any> {
-    return this.http.get(`${this.URL}auth`)
+  isAuthenticated(ls: string | null): Observable<any> {
+    return this.http.get(`${this.URL}auth/${ls}`)
   }
 }

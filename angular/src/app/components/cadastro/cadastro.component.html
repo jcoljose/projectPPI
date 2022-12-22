@@ -10,7 +10,7 @@
 
                                 <span class="txt1">Nome Completo</span>
                                 <div class="wrap-input100">
-                                    <input class="input100 form-control" formControlName="nomeCompleto" type="text" placeholder="Digite seu Nome" (keypress)="keyPressName($event)">
+                                    <input class="input100 form-control" formControlName="nomeCompleto" type="text" placeholder="Digite seu Nome" (keypress)="keyPressName($event)" (paste)="preventDefault($event)">
                                     <span class="focus-input100"></span>
                                     <small class="text-danger" *ngIf="cadastroForm.get('nomeCompleto').hasError('required') && (cadastroForm.get('nomeCompleto').dirty || cadastroForm.get('nomeCompleto').touched)">Esse Campo é Obrigatório</small>
                                 </div>
@@ -20,7 +20,7 @@
                             <div class="input-group-">
                                 <span class="txt1">CPF</span>
                                 <div class="wrap-input100">
-                                    <input class="input100 form-control" formControlName="cpf" type="text" placeholder="XXX.XXX.XXX-XX" (keypress)="keyPressNumber($event)">
+                                    <input class="input100 form-control" formControlName="cpf" type="text" placeholder="XXX.XXX.XXX-XX" (keypress)="keyPressNumber($event)" (paste)="preventDefault($event)">
                                     <span class="focus-input100"></span>
                                     <small class="text-danger" *ngIf="cadastroForm.get('cpf').hasError('required') && (cadastroForm.get('cpf').dirty || cadastroForm.get('cpf').touched)">Esse Campo é Obrigatório</small>
                                     <small class="text-danger" *ngIf="cadastroForm.get('cpf').hasError('maxlength')">Deve conter no máximo {{cadastroForm.get('cpf').errors.maxlength.requiredLength}} dígitos</small>
@@ -44,11 +44,11 @@
                             <div class="input-group-">
                                 <label class="txt1">Gênero</label><br>
                                     <label class="radio-container- m-r-45-">Masculino
-                                        <input class="form-control" formControlName="sexo" type="radio" value="M">
+                                        <input class="form-control" formControlName="sexo" type="radio" value="Masculino">
                                         <span class="checkmark-"></span>
                                     </label>
                                     <label class="radio-container-">Feminino
-                                        <input class="form-control" formControlName="sexo" type="radio" value="F">
+                                        <input class="form-control" formControlName="sexo" type="radio" value="Feminino">
                                         <span class="checkmark-"></span>
                                     </label>
                                     <small class="text-danger" *ngIf="cadastroForm.get('sexo').hasError('required') && (cadastroForm.get('sexo').dirty || cadastroForm.get('sexo').touched)">Esse Campo é Obrigatório</small>
@@ -71,7 +71,7 @@
                             <div class="input-group-">
                                 <span class="txt1">Telefone</span>
                                 <div class="wrap-input100">
-                                    <input class="input100 form-control" formControlName="telefone" type="tel" placeholder="(DDD) 9 XXXX-XXXX" (keypress)="keyPressNumber($event)">
+                                    <input class="input100 form-control" formControlName="telefone" type="tel" placeholder="(DDD) 9 XXXX-XXXX" (keypress)="keyPressNumber($event)" (paste)="preventDefault($event)">
                                     <span class="focus-input100"></span>
                                     <small class="text-danger" *ngIf="cadastroForm.get('telefone').hasError('required') && (cadastroForm.get('telefone').dirty || cadastroForm.get('telefone').touched)">Esse Campo é Obrigatório</small>
                                     <small class="text-danger" *ngIf="cadastroForm.get('telefone').hasError('maxlength')">Deve conter no máximo {{cadastroForm.get('telefone').errors.maxlength.requiredLength}} dígitos</small>

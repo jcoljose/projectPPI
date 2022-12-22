@@ -6,7 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
-import { ConsultaComponent } from './components/consulta/consulta.component';
 import { LoginComponent } from './components/login/login.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 
@@ -15,8 +14,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     AppComponent,
     CadastroComponent,
     LoginComponent,
-    PerfilComponent,
-    ConsultaComponent
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

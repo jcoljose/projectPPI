@@ -54,8 +54,8 @@
 
   a:hover {
       text-decoration: none;
-    color: #fc00ff;
-    border-color: #fc00ff;
+    color: #03dee6;
+    border-color: #03dee6;
   }
 
   /*---------------------------------------------*/
@@ -420,6 +420,10 @@
 
   .m-r-45- {
     margin-right: 45px;
+  }
+
+  .m-b-30- {
+    margin-bottom: 30px;
   }
 
   /* ==========================================================================
