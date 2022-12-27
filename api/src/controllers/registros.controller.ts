@@ -4,10 +4,10 @@ import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient();
 
-export const registrarPaciente = async (req: Request, res: Response) => {
-    const { cpf, email, senha, rSenha, nomeCompleto, telefone, dataNascimento, sexo } = req.body
+export const registrar = async (req: Request, res: Response) => {
+    let { cpf, email, senha, rSenha, nomeCompleto, telefone, dataNascimento, sexo } = req.body
 
-    const dataDeNascimento = new Date(dataNascimento)
+    dataNascimento = new Date(dataNascimento)
 
     const emailExists = await prisma.paciente.findFirst({
         where: {
@@ -20,12 +20,8 @@ export const registrarPaciente = async (req: Request, res: Response) => {
         }
     })
 
-    if (emailExists !== null || cpfExists !== null) {return res.json({
-        message: 'Email ou CPF informado já existe'
-    })}
-    if (senha !== rSenha) {return res.json({
-        message: 'As senhas estão diferentes'
-    })}
+    if (emailExists !== null || cpfExists !== null) {return res.json({message: 'Email ou CPF informado já existe'})}
+    if (senha !== rSenha) {return res.json({message: 'As senhas estão diferentes'})}
     
     const hashSenha = await bcrypt.hash(senha, 10)
 
@@ -36,13 +32,10 @@ export const registrarPaciente = async (req: Request, res: Response) => {
             senha: hashSenha, 
             nomeCompleto: nomeCompleto,
             telefone: telefone,
-            dataDeNascimento: dataDeNascimento,
+            dataDeNascimento: dataNascimento,
             sexo: sexo
         }
     })
 
-    return res.json({
-        message: 'Usuário registrado com sucesso!',
-        value: true
-    })
+    return res.json({message: 'Usuário registrado com sucesso!', value: true})
 }

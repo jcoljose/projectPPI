@@ -11,7 +11,7 @@ export class AuthService {
 
   private URL: string
 
-  constructor(private http: HttpClient) { this.URL = 'http://localhost:3333/';}
+  constructor(private http: HttpClient) {this.URL = 'http://localhost:3333/';}
 
   login(login: Login): Observable<any> {
     return this.http.post(`${this.URL}login`, login)

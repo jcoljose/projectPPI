@@ -23,11 +23,11 @@
             <small class="text-danger" *ngIf="loginForm.get('senha').hasError('required') && (loginForm.get('senha').dirty || loginForm.get('senha').touched)">Esse Campo é Obrigatório</small>
           </div>
 
-          <div class="container-login100-form-btn m-t-17">
-            <button class="login100-form-btn" [disabled]="loginForm.invalid">Entrar</button>
+          <div class="container-button m-t-20">
+            <button class="green-button" [disabled]="loginForm.invalid">Entrar</button>
           </div>
 
-          <div class="w-full text-center p-t-55">
+          <div class="w-full text-center p-t-30">
             <span class="txt2">Não tem conta?</span>
             <a routerLink="/cadastro" class="txt2 bo1"> Registre-se</a>
           </div>

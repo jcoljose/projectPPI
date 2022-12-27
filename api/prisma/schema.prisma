@@ -18,8 +18,8 @@ model Paciente {
   telefone                               String
   dataDeNascimento                       DateTime
   sexo                                   String
-  altura                                 Float?
-  peso                                   Float?
+  altura                                 String?
+  peso                                   String?
   dataCriado                             DateTime                 @default(now())
 
   consulta                               Consulta[]               //Relação: (n, n)
@@ -67,6 +67,7 @@ model HorariosAtendimento {
   horarios                               String
 
   medico                                 Medico[]                 //Relação: (n, 0)
+  consulta                               Consulta[]               //Relação: (n, 0)
 
   @@map("horarioAtendimento")
 }
@@ -74,6 +75,9 @@ model HorariosAtendimento {
 model Consulta {
   id                                     Int                      @id @default(autoincrement())
   dataConsulta                           DateTime
+
+  horariosAtendimento                    HorariosAtendimento      @relation(fields: [horariosAtendimentoId], references: [id])
+  horariosAtendimentoId                  Int
 
   paciente                               Paciente                 @relation(fields: [pacienteCpf], references: [cpf])
   pacienteCpf                            String                   //Relação: (n, n)

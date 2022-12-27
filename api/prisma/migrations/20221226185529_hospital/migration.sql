@@ -7,8 +7,8 @@ CREATE TABLE `paciente` (
     `telefone` VARCHAR(191) NOT NULL,
     `dataDeNascimento` DATETIME(3) NOT NULL,
     `sexo` VARCHAR(191) NOT NULL,
-    `altura` DOUBLE NULL,
-    `peso` DOUBLE NULL,
+    `altura` VARCHAR(191) NULL,
+    `peso` VARCHAR(191) NULL,
     `dataCriado` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`cpf`)
@@ -53,6 +53,7 @@ CREATE TABLE `horarioAtendimento` (
 CREATE TABLE `consulta` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `dataConsulta` DATETIME(3) NOT NULL,
+    `horariosAtendimentoId` INTEGER NOT NULL,
     `pacienteCpf` VARCHAR(191) NOT NULL,
     `medicoCrm` VARCHAR(191) NOT NULL,
     `queixa` VARCHAR(191) NOT NULL,
@@ -83,6 +84,9 @@ CREATE TABLE `_HorariosAtendimentoToMedico` (
 
 -- AddForeignKey
 ALTER TABLE `medico` ADD CONSTRAINT `medico_especialidadeId_fkey` FOREIGN KEY (`especialidadeId`) REFERENCES `especialidade`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `consulta` ADD CONSTRAINT `consulta_horariosAtendimentoId_fkey` FOREIGN KEY (`horariosAtendimentoId`) REFERENCES `horarioAtendimento`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `consulta` ADD CONSTRAINT `consulta_pacienteCpf_fkey` FOREIGN KEY (`pacienteCpf`) REFERENCES `paciente`(`cpf`) ON DELETE RESTRICT ON UPDATE CASCADE;

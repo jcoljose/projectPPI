@@ -197,7 +197,7 @@
     width: 100%;
     display: block;
     font-family: Montserrat-Medium;
-    font-size: 39px;
+    font-size: 40px;
     color: #555555;
     line-height: 1.2;
     text-align: center;
@@ -282,7 +282,7 @@
 
   /*------------------------------------------------------------------
   [ Button ]*/
-  .container-login100-form-btn {
+  .container-button {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -292,7 +292,7 @@
     flex-wrap: wrap;
   }
 
-  .login100-form-btn {
+  .green-button, .red-button, .blue-button, .yellow-button {
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -319,7 +319,7 @@
     z-index: 1;
   }
 
-  .login100-form-btn::before {
+  .green-button::before, .red-button::before, .blue-button::before, .yellow-button::before {
     content: "";
     display: block;
     position: absolute;
@@ -329,11 +329,6 @@
     border-radius: 10px;
     top: 0;
     left: 0;
-    background: #4b64f4;
-    background: -webkit-linear-gradient(45deg, #03a7aa, #1dc539);
-    background: -o-linear-gradient(45deg, #03a7aa, #1dc539);
-    background: -moz-linear-gradient(45deg, #03a7aa, #1dc539);
-    background: linear-gradient(45deg, #03a7aa, #1dc539);
     opacity: 0;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
@@ -341,8 +336,36 @@
     transition: all 0.4s;
   }
 
-  .login100-form-btn:hover:before {
+  .green-button:hover:before, .red-button:hover:before, .blue-button:hover:before, .yellow-button:hover:before {
     opacity: 1;
+  }
+
+  .green-button::before {
+    background: -webkit-linear-gradient(45deg, #3fcf80, #00c020);
+    background: -o-linear-gradient(45deg, #3fcf80, #00c020);
+    background: -moz-linear-gradient(45deg, #3fcf80, #00c020);
+    background: linear-gradient(45deg, #3fcf80, #00c020);
+  }
+
+  .red-button::before {
+    background: -webkit-linear-gradient(45deg, #ff7462, #ce0000);
+    background: -o-linear-gradient(45deg, #ff7462, #ce0000);
+    background: -moz-linear-gradient(45deg, #ff7462, #ce0000);
+    background: linear-gradient(45deg, #ff7462, #ce0000);
+  }
+
+  .blue-button::before {
+    background: -webkit-linear-gradient(45deg, #6272ff, #0e00ce);
+    background: -o-linear-gradient(45deg, #6272ff, #0e00ce);
+    background: -moz-linear-gradient(45deg, #6272ff, #0e00ce);
+    background: linear-gradient(45deg, #6272ff, #0e00ce);
+  }
+
+  .yellow-button::before {
+    background: -webkit-linear-gradient(45deg, #f8f67b, #ff8707);
+    background: -o-linear-gradient(45deg, #f8f67b, #ff8707);
+    background: -moz-linear-gradient(45deg, #f8f67b, #ff8707);
+    background: linear-gradient(45deg, #f8f67b, #ff8707);
   }
 
   /* ==========================================================================
@@ -374,7 +397,7 @@
   }
 
   @media (max-width: 767px) {
-    .col-2 {
+    .col-2- {
       width: 100%;
     }
   }
@@ -424,6 +447,10 @@
 
   .m-b-30- {
     margin-bottom: 30px;
+  }
+
+  .m-t-20- {
+    margin-top: 20px;
   }
 
   /* ==========================================================================
@@ -491,6 +518,7 @@
     -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    min-height: 590px;
   }
 
   .card-4- .card-body- {
@@ -571,4 +599,22 @@
     content: "";
     position: absolute;
     display: none;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+    cursor: pointer;
+  }
+
+  .container1 {
+    transition: 4s opacity ease-in-out;
+    transition-delay: 2s;
+  }
+  .container2 {
+    transition: 4s opacity ease-in-out;
+    transition-delay: 2s;
   }

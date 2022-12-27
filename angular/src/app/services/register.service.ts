@@ -8,11 +8,12 @@ import { Paciente } from '../models/paciente.model';
   providedIn: 'root'
 })
 export class RegisterService {
+
   private URL: string
 
-  constructor(private http: HttpClient) { this.URL = 'http://localhost:3333/';}
+  constructor(private http: HttpClient) {this.URL = 'http://localhost:3333/';}
 
-  registrarPaciente(registro: Paciente): Observable<any> {
+  registrar(registro: Paciente): Observable<any> {
     return this.http.post(`${this.URL}registrar`, registro)
   }
 }

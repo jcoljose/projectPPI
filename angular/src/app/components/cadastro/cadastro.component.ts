@@ -48,7 +48,7 @@ export class CadastroComponent implements OnInit {
   }
 
   submit(): void {
-    this.register.registrarPaciente(this.cadastroForm.getRawValue()).subscribe(res => {
+    this.register.registrar(this.cadastroForm.getRawValue()).subscribe(res => {
       alert(res.message)
       if (res.value) {this.router.navigate(['/'])}
     })

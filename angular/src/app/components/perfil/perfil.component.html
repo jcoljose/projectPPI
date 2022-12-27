@@ -2,30 +2,105 @@
   <div class="wrapper- wrapper--w680-">
       <div class="card- card-4-">
           <div class="card-body-">
-              <span class="login100-form-title p-b-30-">Perfil</span>
-                  <span class="txt1">Nome Completo</span>
+            <div class="row- row-space-">
+              <span class="material-symbols-outlined" (click)="carouselTransition(-1)">arrow_back_ios</span>
+              <span *ngIf="carousel == 1" class="login100-form-title p-b-30- col-2-">Perfil</span>
+              <span *ngIf="carousel == 2" class="login100-form-title p-b-30- col-2-">Agendar Consulta</span>
+              <span *ngIf="carousel == 3" class="login100-form-title p-b-30- col-2-">Consultas (Andamento)</span>
+              <span *ngIf="carousel == 4" class="login100-form-title p-b-30- col-2-">Consultas (Finalizadas)</span>
+              <span class="material-symbols-outlined" (click)="carouselTransition(1)">arrow_forward_ios</span>
+            </div>
+            <div *ngIf="carousel == 1">
+              <form *ngFor="let p of perfil" [formGroup]="perfilForm">
+                <span class="txt1">Nome Completo</span>
                   <div class="wrap-input100 m-b-30-">
-                      <input class="input100" type="text" [value]="nomeCompleto" [disabled]="disabled">
+                      <input class="input100 form-control" formControlName="nomeCompleto" type="text" [placeholder]="p.nomeCompleto">
                       <span class="focus-input100"></span>
                   </div>
                   <span class="txt1">CPF</span>
                   <div class="wrap-input100 m-b-30-">
-                      <input class="input100" type="text" [value]="cpf" [disabled]="disabled">
+                      <input class="input100 form-control" formControlName="cpf" type="text" [placeholder]="p.cpf">
                       <span class="focus-input100"></span>
                   </div>
                   <span class="txt1">Data de Nascimento</span>
                   <div class="wrap-input100 m-b-30-">
-                      <input class="input100" type="date" [value]="dataDeNascimento" [disabled]="disabled">
+                      <input class="input100 form-control" formControlName="dataNascimento" type="text" [placeholder]="p.dataDeNascimento">
                       <span class="focus-input100"></span>
                   </div>
                   <span class="txt1">Telefone</span>
                   <div class="wrap-input100 m-b-30-">
-                      <input class="input100" type="tel" [value]="telefone" [disabled]="disabled">
+                      <input class="input100 form-control" formControlName="telefone" type="tel" [placeholder]="p.telefone" (keypress)="keyPressNumber($event)" (paste)="preventDefault($event)">
+                      <span class="focus-input100"></span>
+                      <small class="text-danger" *ngIf="perfilForm.get('telefone').hasError('maxlength')">Deve conter no máximo {{perfilForm.get('telefone').errors.maxlength.requiredLength}} dígitos</small>
+                      <small class="text-danger" *ngIf="perfilForm.get('telefone').hasError('minlength')">Deve conter no mínimo {{perfilForm.get('telefone').errors.minlength.requiredLength}} dígitos</small>
+                  </div>
+                  <span class="txt1">Gênero</span>
+                  <div class="wrap-input100 m-b-30-">
+                    <input *ngIf="editButton" class="input100 form-control" formControlName="sexo" type="text" [placeholder]="p.sexo">
+                    <select *ngIf="!editButton" class="input100 form-control" formControlName="sexo">
+                      <option value="Masculino">Masculino</option>
+                      <option value="Feminino">Feminino</option>
+                    </select>
                       <span class="focus-input100"></span>
                   </div>
-                  <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" (click)="logout()">Sair</button>
+                  <span class="txt1">Altura</span>
+                  <div class="wrap-input100 m-b-30-">
+                      <input class="input100 form-control" formControlName="altura" type="number" [placeholder]="p.altura != null ? p.altura : 'Não Cadastrado'" (paste)="preventDefault($event)">
+                      <span class="focus-input100"></span>
+                      <small class="text-danger" *ngIf="perfilForm.get('altura').hasError('min')">Digite a altura sem ponto</small>
+                      <small class="text-danger" *ngIf="perfilForm.get('altura').hasError('max')">Altura máxima excedida</small>
                   </div>
+                  <span class="txt1">Peso</span>
+                  <div class="wrap-input100 m-b-30-">
+                      <input class="input100 form-control" formControlName="peso" type="number" [placeholder]="p.peso != null ? p.peso : 'Não Cadastrado'" (paste)="preventDefault($event)">
+                      <span class="focus-input100"></span>
+                      <small class="text-danger" *ngIf="perfilForm.get('peso').hasError('min')">Peso mínimo inválido</small>
+                      <small class="text-danger" *ngIf="perfilForm.get('peso').hasError('max')">Peso máximo excedido</small>
+                  </div>
+
+                  <div *ngIf="!editButton" class="container-button m-b-30-">
+                    <button class="blue-button" (click)="salvar()" [disabled]="perfilForm.invalid">Salvar</button>
+                  </div>
+                  <div class="container-button m-b-30-">
+                    <button *ngIf="editButton" class="blue-button" (click)="edit()">Editar Dados</button>
+                    <button *ngIf="!editButton" class="yellow-button" (click)="edit()">Cancelar</button>
+                  </div>
+                  <div class="container-button">
+                    <button class="red-button" (click)="logout()">Sair</button>
+                  </div>
+              </form>
+            </div>
+            <div *ngIf="carousel == 2">
+              <form [formGroup]="consultaForm">
+                <div class="row- row-space-">
+                  <div class="col-2-">
+                      <div class="input-group-">
+                          <span class="txt1">Data da Consulta</span>
+                          <div class="wrap-input100 m-b-30-">
+                              <input class="input100 form-control" formControlName="dataConsulta" type="date">
+                              <span class="focus-input100"></span>
+                              <small class="text-danger" *ngIf="consultaForm.get('dataConsulta').hasError('required') && (consultaForm.get('dataConsulta').dirty || consultaForm.get('dataConsulta').touched)">Esse Campo é Obrigatório</small>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-2-">
+                      <div class="input-group-">
+                        <span class="txt1">Especialidade</span>
+                        <div class="wrap-input100 m-b-30-">
+                          <select class="input100 form-control" formControlName="especialidade">
+                            <option *ngFor="let e of especialidade" [value]="e.id">{{e.especialidade}}</option>
+                          </select>
+                            <span class="focus-input100"></span>
+                            <small class="text-danger" *ngIf="consultaForm.get('especialidade').hasError('required') && (consultaForm.get('especialidade').dirty || consultaForm.get('especialidade').touched)">Esse Campo é Obrigatório</small>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="container-button">
+                    <button class="blue-button" (click)="pesquisar()" [disabled]="consultaForm.invalid">Pesquisar</button>
+                  </div>
+              </div>
+              </form>
+            </div>
           </div>
       </div>
   </div>
